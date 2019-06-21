@@ -1,13 +1,11 @@
 import React from 'react';
-import Button from './button';
-
+import {Button} from './button';
+import{connect} from 'react-redux'
 
 class App extends React.Component {
-constructor(){
-  super();
-  this.state = {
-    count: 0
-  }
+constructor(props){
+  super(props);
+  console.log(props)
 }
 
 componentDidMount = () => {
@@ -35,11 +33,17 @@ eatOne = () => {this.state.count > 0 ?
     return (
       <div className="App">
         <Button handleClick={this.buyOne} name="Buy one" />
-        {this.state.count}
+        {this.props.count}
         <Button handleClick={this.eatOne} name="Eat one" />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) =>{
+  return{
+    count: state.count
+  }
+}
+
+export default connect(mapStateToProps)(App);
